@@ -11,15 +11,12 @@ template <typename T>
 Set<T>::~Set() { clear() } // Destructor
 
 template <typename T>
-void set<T>::clear() {
+void Set<T>::clear() {
     while (list != nullptr) {
-        Node *tempo = list;
+        Node *temp = list;
         list = list.getNext();
+        delete  temp;
     }
-    {
-        /* code */
-    }
-    
 }
 // void Set<T>::clear() {
 //     Node *current = list
