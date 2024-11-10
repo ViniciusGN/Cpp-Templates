@@ -1,19 +1,29 @@
-#include <iomanip>  //
-#include <ios>      // File set_test.cpp
-#include <iostream> //
+#include <iomanip>
+#include <ios>
+#include <iostream>
 #include <string>
-#include <cmath>    // add by us
+#include <cmath>
 #include "Set.h"
 
 using namespace std;
 typedef Set<double> SetOfDouble;
 
-int main(int, char *[]){
+int main(int, char *[])
+{
     SetOfDouble e;
     Set<double> f, g, h;
-    for (int i = 1; i <= 10; i++) { e.insert(i); }
-    for (int i = 5; i <= 20; i++) { f.insert(i); }
-    for (int i = 14; i < 20; i++) { g.insert(i); }
+    for (int i = 1; i <= 10; i++)
+    {
+        e.insert(i);
+    }
+    for (int i = 5; i <= 20; i++)
+    {
+        f.insert(i);
+    }
+    for (int i = 14; i < 20; i++)
+    {
+        g.insert(i);
+    }
 
     cout << std::boolalpha; // <ios>
     cout << e.contains(5) << endl;
