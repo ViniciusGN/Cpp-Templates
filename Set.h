@@ -8,7 +8,7 @@ template <typename T>
 class Set
 {
 public:
-    Set() : list(nullptr) {}                // Defaault constructor
+    Set() : list(nullptr) {}                // Default constructor
     Set(T param) : list(new Node(param)) {} // Param constructor
     ~Set() { clear(); }                     // Destructor
 
@@ -21,7 +21,7 @@ public:
     }
 
     Set &operator=(const Set &other)
-    { // Attribution operato
+    { // Attribution operator
         if (this != &other)
         {
             clear();
@@ -148,7 +148,6 @@ Set<G> operator|(const Set<G> &a, const Set<G> &b)
     Set<G> result = a;
     for (auto current = b.list; current != nullptr; current = current->getNext())
     {
-        // Don't remove, check if it's already in the set
         if (!result.contains(current->getValue()))
         {
 
@@ -159,18 +158,25 @@ Set<G> operator|(const Set<G> &a, const Set<G> &b)
 }
 
 template <typename G>
-Set<G> operator&(const Set<G> &a, const Set<G> &b)
-{
-    // TODO: Returns in crescent order, is that a problem ?
+Set<G> operator&(const Set<G> &a, const Set<G> &b) {
     Set<G> result;
-    for (auto current = a.list; current != nullptr; current = current->getNext())
-    {
-        if (b.contains(current->getValue()))
-        {
+
+    // Build the intersection (in reverse order due to insert at the beginning)
+    for (auto current = a.list; current != nullptr; current = current->getNext()) {
+        if (b.contains(current->getValue())) {
             result.insert(current->getValue());
         }
     }
-    return result;
+
+    // Reverse the list to maintain the correct (descending) order
+    Set<G> reversedResult;
+    auto current = result.list;
+    while (current != nullptr) {
+        reversedResult.insert(current->getValue());
+        current = current->getNext();
+    }
+
+    return reversedResult;
 }
 
 template <typename G>
@@ -239,12 +245,9 @@ Set<G> singleton(G param)
 }
 
 template <typename G>
-Set<G> image(const Set<G> &set, G (*function)(G))
-{
-    // TODO: Its returning in a inverted order, is that a problem ?
+Set<G> image(const Set<G>& set, G (*function)(G)) {
     Set<G> result;
-    for (auto current = set.list; current != nullptr; current = current->getNext())
-    {
+    for (auto current = set.list; current != nullptr; current = current->getNext()) {
         result.insert(function(current->getValue()));
     }
     return result;

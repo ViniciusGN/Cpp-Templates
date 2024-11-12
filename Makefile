@@ -1,4 +1,5 @@
-CXX = clang++ # ou g++
+#CXX = clang++  # OR
+CXX = g++
 CXXFLAGS = -pedantic -std=c++11 -Wall -Wextra
 
 SRCS = set_test.cpp
