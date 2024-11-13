@@ -4,6 +4,11 @@ TP5 C++ Group 4
 This code is the intellectual property of ENSICAEN and is subject to the institution's terms and conditions.
 Unauthorized reproduction, distribution, or use is strictly prohibited
 
+## Run:
+-   `make`
+-   `./build/main`
+
+
 ### Remarque sur l'implémentation
 Pendant le développement de ce projet, nous avons rencontré une difficulté concernant l'implémentation du **méthode `insert()`** (ajouter des éléments au début de la liste) et l'alternative possible, le **méthode `append()`** (ajouter des éléments à la fin de la liste). 
 Comme nous n'avons pas implémenté `append()`, nous avons dû ajouter un **système de réversion des valeurs** à la fin de certaines fonctions, notamment dans `operator&` (intersection) et `image()`. Cela nous a permis d'assurer que la sortie respecte l'ordre attendu des éléments.

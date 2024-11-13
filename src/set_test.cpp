@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-#include "Set.h"
+#include "../include/Set.h"
 
 using namespace std;
 typedef Set<double> SetOfDouble;

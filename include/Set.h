@@ -87,6 +87,32 @@ public:
         }
     }
 
+    template <typename G>
+    void insertInto(Set<G> &source, Set<G> &target) {
+        for (auto current = source.list; current != nullptr; current = current->getNext()) {
+            target.insert(current->getValue());
+        }
+    }
+
+    template <typename G>
+    void removeFrom(Set<G> &source, Set<G> &target) {
+        for (auto current = source.list; current != nullptr; current = current->getNext()) {
+            target.remove(current->getValue());
+        }
+    }
+
+    template <typename G>
+    bool isSubsetOf(const Set<G> &a, const Set<G> &b) {
+        for (auto current = a.list; current != nullptr; current = current->getNext()) {
+            if (!b.contains(current->getValue())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
     // I changed everything to type G, to avoid the overshadowing errors.
     // Union
     template <typename G>
@@ -132,6 +158,7 @@ private:
         T getValue() const { return value; }
         Node *getNext() const { return next; }
         void setNext(Node *nextNode) { next = nextNode; }
+        ~Node(){}
 
     private:
         T value;
@@ -268,5 +295,11 @@ std::ostream &operator<<(std::ostream &out, const Set<G> &s)
     out << "}";
     return out;
 }
+
+template <typename G>
+Set<G> emptySet() {
+    return Set<G>();
+}
+
 
 #endif // SET_H

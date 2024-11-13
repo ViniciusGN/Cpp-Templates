@@ -2,25 +2,35 @@
 CXX = g++
 CXXFLAGS = -pedantic -std=c++11 -Wall -Wextra
 
-SRCS = set_test.cpp
-OBJS = $(SRCS:.cpp=.o)
+INCLUDE_DIR = include
+SRC_DIR = src
+BUILD_DIR = build
 
-EXEC = main
-TEST_EXEC = test
+SRCS = $(SRC_DIR)/set_test.cpp
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))
+
+EXEC = $(BUILD_DIR)/main
+TEST_EXEC = $(BUILD_DIR)/test
+
+ifeq ($(OS),Windows_NT)
+    MKDIR = if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
+    RM = rmdir /S /Q $(BUILD_DIR)
+else
+    MKDIR = mkdir -p $(BUILD_DIR)
+    RM = rm -rf $(BUILD_DIR)
+endif
 
 all: $(EXEC)
 
 $(EXEC): $(OBJS)
+	$(MKDIR)
 	$(CXX) $(CXXFLAGS) $(OBJS) -o $(EXEC)
 
-# Comando específico para os testes, se aplicável
-test: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TEST_EXEC)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(MKDIR)
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 clean:
-	rm -f *.o $(EXEC) $(TEST_EXEC)
+	$(RM)
 
 .PHONY: all clean
